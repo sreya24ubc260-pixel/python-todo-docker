@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef1f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 350px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        ul {
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        .actions a {
+            text-decoration: none;
+            margin-left: 8px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .complete {
+            background: #28a745;
+        }
+
+        .delete {
+            background: #dc3545;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h2>📝 To-Do App</h2>
+
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Enter task" required>
+        <button>Add</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <span class="{{ 'done' if task.done else '' }}">
+                {{ task.task }}
+            </span>
+
+            <div class="actions">
+                <a href="/complete/{{ loop.index0 }}" class="complete">Complete</a>
+                <a href="/delete/{{ loop.index0 }}" class="delete">Delete</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
